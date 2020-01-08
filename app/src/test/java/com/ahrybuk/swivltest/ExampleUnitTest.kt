@@ -1,5 +1,8 @@
 package com.ahrybuk.swivltest
 
+import com.ahrybuk.swivltest.api.configuration.RetrofitProvider
+import com.ahrybuk.swivltest.api.services.UsersService
+import org.junit.Assert
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -13,5 +16,25 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun usersApiTest() {
+
+        //"from" and "username" values is hardcoded because this is test proj
+
+        val userService = RetrofitProvider().retrofit.create(UsersService::class.java)
+
+        userService.getUsers().subscribe { users ->
+            assertTrue(users.isNotEmpty())
+        }
+
+        userService.getUsers(45).subscribe { users ->
+            assertTrue(users.isNotEmpty())
+        }
+
+        userService.getUserDetail("bmizerany").subscribe { user ->
+            assertTrue(user.url != null)
+        }
     }
 }
