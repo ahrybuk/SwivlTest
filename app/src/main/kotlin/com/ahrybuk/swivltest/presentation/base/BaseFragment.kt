@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import com.ahrybuk.swivltest.R
 import com.google.android.material.snackbar.Snackbar
 
-class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
 
     protected open fun showError(error: Throwable) {
         view?.let {
