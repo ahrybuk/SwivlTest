@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.KoinComponent
 
-class BaseViewModel : ViewModel(), KoinComponent {
+open class BaseViewModel : ViewModel(), KoinComponent {
 
     protected val subscriptions = CompositeDisposable()
 

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">SwivlTest</string>
     <string name="unknown_error">Something went wrong</string>
+    <string name="user_list_screen_title">Users</string>
 </resources>
