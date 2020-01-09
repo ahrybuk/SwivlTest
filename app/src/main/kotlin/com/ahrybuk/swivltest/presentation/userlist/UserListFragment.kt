@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ahrybuk.swivltest.R
 import com.ahrybuk.swivltest.presentation.base.BaseFragment
+import com.ahrybuk.swivltest.presentation.userdetail.UserDetailFragment
 import kotlinx.android.synthetic.main.fragment_user_list.*
+import kotlinx.android.synthetic.main.item_user_list.*
 
 class UserListFragment : BaseFragment() {
 
@@ -52,6 +56,12 @@ class UserListFragment : BaseFragment() {
         rvUsers.layoutManager = layoutManager
         rvUsers.adapter = userListAdapter
         setUpPagination(layoutManager)
+        postponeEnterTransition()
+        rvUsers.viewTreeObserver
+            .addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
     }
 
     private fun setUpPagination(layoutManager: LinearLayoutManager) {
@@ -97,10 +107,13 @@ class UserListFragment : BaseFragment() {
         }
     }
 
-    private fun onUserSelected(userId: Long) {
-        if (userId == -1L) {
-            showError(Throwable("User have no id, sorry"))
-        }
-//        TODO() go next
+    private fun onUserSelected(usermame: String, userAvatarUrl: String, transitionView: View) {
+        val args = Bundle()
+        args.putString(UserDetailFragment.USERNAME_KEY, usermame)
+        args.putString(UserDetailFragment.USER_AVATAR_URL_KEY, userAvatarUrl)
+        val extras = FragmentNavigatorExtras(
+            transitionView to "transition_".plus(usermame)
+        )
+        findNavController().navigate(R.id.userDetailFragment, args, null, extras)
     }
 }
