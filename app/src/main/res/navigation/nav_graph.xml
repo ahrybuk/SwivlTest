@@ -8,7 +8,13 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.ahrybuk.swivltest.presentation.userlist.UserListFragment"
-        android:label="PostList"
+        android:label="UserList"
         tools:layout="@layout/fragment_user_list" />
+
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="com.ahrybuk.swivltest.presentation.userdetail.UserDetailFragment"
+        android:label="UserDetail"
+        tools:layout="@layout/fragment_user_detail"/>
 
 </navigation>

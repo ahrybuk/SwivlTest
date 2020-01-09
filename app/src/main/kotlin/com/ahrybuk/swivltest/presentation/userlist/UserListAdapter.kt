@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_user_list.view.*
 
 
-class UserListAdapter(val itemClickListener: (Long) -> Unit) : RecyclerView.Adapter<UserListAdapter.UserItemViewHolder>() {
+class UserListAdapter(val itemClickListener: (String, String, View) -> Unit) : RecyclerView.Adapter<UserListAdapter.UserItemViewHolder>() {
 
     private var items = arrayListOf<UserListEntity>()
 
@@ -42,7 +42,8 @@ class UserListAdapter(val itemClickListener: (Long) -> Unit) : RecyclerView.Adap
                 .into(itemView.ivAvatar)
 
             itemView.setOnClickListener {
-                itemClickListener(userListEntity.id ?: -1)
+                itemView.ivAvatar.transitionName = "transition_".plus(userListEntity.username)
+                itemClickListener(userListEntity.username ?: "", userListEntity.avatarUrl ?: "", itemView.ivAvatar)
             }
         }
     }
